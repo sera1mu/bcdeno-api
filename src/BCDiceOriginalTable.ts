@@ -6,6 +6,9 @@ export interface IBCDiceOriginalTable {
   readonly items: string[];
 }
 
+/**
+ * BCDiceのオリジナル表
+ */
 export default class BCDiceOriginalTable implements IBCDiceOriginalTable {
   readonly title: string;
 
