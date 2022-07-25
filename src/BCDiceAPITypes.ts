@@ -1,3 +1,6 @@
+/**
+ * BCDiceとBCDice-APIのバージョン
+ */
 export interface APIVersion {
   /**
    * BCDice-APIのバージョン
@@ -51,6 +54,9 @@ export function isAPIAdmin(arg: any): arg is APIAdmin {
     typeof arg.email === "string";
 }
 
+/**
+ * 使用可能なゲームシステム
+ */
 export interface AvailableGameSystem {
   id: string;
 
@@ -113,6 +119,9 @@ export function isGameSystem(
     typeof arg.sortKey === "string" && arg.commandPattern instanceof RegExp;
 }
 
+/**
+ * ダイスロールの種類と結果
+ */
 export interface DiceRoll {
   /**
    * 振ったダイスの種類
@@ -145,6 +154,9 @@ export function isDiceRoll(arg: any): arg is DiceRoll {
     typeof arg.sides === "number" && typeof arg.value === "number";
 }
 
+/**
+ * コマンドの実行結果
+ */
 export interface DiceRollResults {
   /**
    * コマンドの実行結果
@@ -213,6 +225,9 @@ export function isDiceRollResults(
     typeof arg.fumble === "boolean";
 }
 
+/**
+ * オリジナル表の実行結果
+ */
 export interface OriginalTableResults {
   /**
    * 実行結果
