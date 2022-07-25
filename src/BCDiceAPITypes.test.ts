@@ -2,8 +2,8 @@ import {
   isAPIAdmin,
   isAPIVersion,
   isAvailableGameSystem,
+  isCommandResult,
   isDiceRoll,
-  isDiceRollResults,
   isGameSystem,
   isOriginalTableResults,
 } from "./BCDiceAPITypes.ts";
@@ -122,9 +122,9 @@ describe("BCDiceAPITypes", () => {
       }],
     }];
 
-    assert(isDiceRollResults(correct));
+    assert(isCommandResult(correct));
     for (const entry of incorrects) {
-      assert(!(isDiceRollResults(entry)));
+      assert(!(isCommandResult(entry)));
     }
   });
 
