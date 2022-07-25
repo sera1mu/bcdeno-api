@@ -1,4 +1,4 @@
-import { HTTPError } from "ky";
+import { HTTPError, Options } from "ky";
 import BCDiceOriginalTable from "./BCDiceOriginalTable.ts";
 import BCDiceError from "./BCDiceError.ts";
 import {
@@ -31,10 +31,11 @@ export default class BCDiceAPIClient {
   }
 
   /**
-   * BCDiceとBCDice-API自身のバージョンを取得
+   * WebClientからGETリクエストを送信し、エラー時にBCDiceErrorをthrowする
    */
-  async getAPIVersion(): Promise<APIVersion> {
-    const json = await this.webClient.get("v2/version")
+  // deno-lint-ignore no-explicit-any
+  private async get(path: string, options?: Options): Promise<any> {
+    return await this.webClient.get(path, options)
       .catch((err) => {
         throw new BCDiceError(
           "CONNECTION_ERROR",
@@ -44,6 +45,13 @@ export default class BCDiceAPIClient {
           },
         );
       });
+  }
+
+  /**
+   * BCDiceとBCDice-API自身のバージョンを取得
+   */
+  async getAPIVersion(): Promise<APIVersion> {
+    const json = await this.get("v2/version");
 
     if (!isAPIVersion(json)) {
       const causeError = new TypeError(
@@ -66,16 +74,7 @@ export default class BCDiceAPIClient {
    * BCDice-APIの管理者情報を取得する
    */
   async getAPIAdmin(): Promise<APIAdmin> {
-    const json = await this.webClient.get("v2/admin")
-      .catch((err) => {
-        throw new BCDiceError(
-          "CONNECTION_ERROR",
-          "Failed to communicate with API.",
-          {
-            cause: err,
-          },
-        );
-      });
+    const json = await this.get("v2/admin");
 
     if (!isAPIAdmin(json)) {
       const causeError = new TypeError(
@@ -97,16 +96,7 @@ export default class BCDiceAPIClient {
    */
   async getAvailableGameSystems(): Promise<AvailableGameSystem[]> {
     // Get data
-    const json = await this.webClient.get("v2/game_system")
-      .catch((err) => {
-        throw new BCDiceError(
-          "CONNECTION_ERROR",
-          "Failed to communicate with API.",
-          {
-            cause: err,
-          },
-        );
-      });
+    const json = await this.get("v2/game_system");
 
     if (typeof json.game_system !== "undefined") {
       // すべてのゲームシステムが正しいことを確認
@@ -151,19 +141,16 @@ export default class BCDiceAPIClient {
    * 指定されたゲームシステムの情報を取得する
    */
   async getGameSystem(id: string): Promise<GameSystem> {
-    const json = await this.webClient.get(`v2/game_system/${id}`)
+    const json = await this.get(`v2/game_system/${id}`)
       .catch((err) => {
         // 400 Bad Request はゲームシステムのIDが正しくないことを示している
-        if (err instanceof HTTPError && err.response.status === 400) {
+        if (
+          err instanceof BCDiceError && err.cause instanceof HTTPError &&
+          err.cause.response.status === 400
+        ) {
           throw new BCDiceError(
             "UNSUPPORTED_SYSTEM",
             "The specified game system is unsupported.",
-            { cause: err },
-          );
-        } else {
-          throw new BCDiceError(
-            "CONNECTION_ERROR",
-            "Failed to communicate with API.",
             { cause: err },
           );
         }
@@ -229,8 +216,11 @@ export default class BCDiceAPIClient {
       },
     }).catch(async (err) => {
       // 400 Bad Request はコマンドが正しくないか、ゲームシステムのIDが正しくないことを示している
-      if (err instanceof HTTPError && err.response.status === 400) {
-        const json = await err.response.json();
+      if (
+        err instanceof BCDiceError && err.cause instanceof HTTPError &&
+        err.cause.response.status === 400
+      ) {
+        const json = await err.cause.response.json();
 
         switch (json.reason) {
           case "unsupported game system":
@@ -247,12 +237,6 @@ export default class BCDiceAPIClient {
               { cause: err },
             );
         }
-      } else {
-        throw new BCDiceError(
-          "CONNECTION_ERROR",
-          "Failed to communicate with API.",
-          { cause: err },
-        );
       }
     });
 
