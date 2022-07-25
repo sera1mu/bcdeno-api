@@ -17,6 +17,9 @@ import {
 } from "./BCDiceAPITypes.ts";
 import SimpleKyClient from "./SimpleKyClient.ts";
 
+/**
+ * BCDice-APIと通信するためのクライアント
+ */
 export default class BCDiceAPIClient {
   readonly prefixUrl: string | URL;
 
@@ -27,6 +30,9 @@ export default class BCDiceAPIClient {
     this.prefixUrl = webClient.prefixUrl;
   }
 
+  /**
+   * BCDiceとBCDice-API自身のバージョンを取得
+   */
   async getAPIVersion(): Promise<APIVersion> {
     const json = await this.webClient.get("v2/version")
       .catch((err) => {
@@ -86,6 +92,9 @@ export default class BCDiceAPIClient {
     return json;
   }
 
+  /**
+   * 使用可能なゲームシステムを取得する
+   */
   async getAvailableGameSystems(): Promise<AvailableGameSystem[]> {
     // Get data
     const json = await this.webClient.get("v2/game_system")
@@ -264,6 +273,10 @@ export default class BCDiceAPIClient {
     return json;
   }
 
+  /**
+   * BCDiceのオリジナル表を実行する
+   * 詳しくは https://docs.bcdice.org/original_table.html を参照。
+   */
   async runOriginalTable(
     table: BCDiceOriginalTable,
   ): Promise<OriginalTableResults> {
