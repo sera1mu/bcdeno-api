@@ -98,29 +98,7 @@ export default class BCDiceAPIClient {
     // Get data
     const json = await this.get("v2/game_system");
 
-    if (typeof json.game_system !== "undefined") {
-      // すべてのゲームシステムが正しいことを確認
-      for (const entry of json.game_system) {
-        const newEntry = entry;
-
-        newEntry.sortKey = newEntry.sort_key;
-        delete newEntry.sort_key;
-
-        if (!isAvailableGameSystem(entry)) {
-          const causeError = new TypeError(
-            `The syntax of the game system is incorrect:\n${
-              JSON.stringify(entry)
-            }`,
-          );
-
-          throw new BCDiceError(
-            "INCORRECT_RESPONSE",
-            "The game system is incorrect.",
-            { cause: causeError },
-          );
-        }
-      }
-    } else {
+    if (typeof json.game_system === "undefined") {
       const causeError = new TypeError(
         `The syntax of the response is incorrect. Property game_system is undefined:\n${
           JSON.stringify(json)
@@ -132,6 +110,28 @@ export default class BCDiceAPIClient {
         "The response is incorrect.",
         { cause: causeError },
       );
+    }
+
+    // すべてのゲームシステムが正しいことを確認
+    for (const entry of json.game_system) {
+      const newEntry = entry;
+
+      newEntry.sortKey = newEntry.sort_key;
+      delete newEntry.sort_key;
+
+      if (!isAvailableGameSystem(entry)) {
+        const causeError = new TypeError(
+          `The syntax of the game system is incorrect:\n${
+            JSON.stringify(entry)
+          }`,
+        );
+
+        throw new BCDiceError(
+          "INCORRECT_RESPONSE",
+          "The game system is incorrect.",
+          { cause: causeError },
+        );
+      }
     }
 
     return json.game_system;
@@ -153,9 +153,9 @@ export default class BCDiceAPIClient {
             "The specified game system is unsupported.",
             { cause: err },
           );
-        } else {
-          throw err;
         }
+
+        throw err;
       });
 
     delete json.ok;
@@ -239,9 +239,9 @@ export default class BCDiceAPIClient {
               { cause: err },
             );
         }
-      } else {
-        throw err;
       }
+
+      throw err;
     });
 
     delete json.ok;
@@ -285,13 +285,13 @@ export default class BCDiceAPIClient {
           "The specified table is unsupported.",
           { cause: err },
         );
-      } else {
-        throw new BCDiceError(
-          "CONNECTION_ERROR",
-          "Failed to communicate with API.",
-          { cause: err },
-        );
       }
+
+      throw new BCDiceError(
+        "CONNECTION_ERROR",
+        "Failed to communicate with API.",
+        { cause: err },
+      );
     });
 
     delete json.ok;
