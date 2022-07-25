@@ -157,7 +157,7 @@ export function isDiceRoll(arg: any): arg is DiceRoll {
 /**
  * コマンドの実行結果
  */
-export interface DiceRollResults {
+export interface CommandResult {
   /**
    * コマンドの実行結果
    */
@@ -194,10 +194,10 @@ export interface DiceRollResults {
   rands: DiceRoll[];
 }
 
-export function isDiceRollResults(
+export function isCommandResult(
   // deno-lint-ignore no-explicit-any
   arg: any,
-): arg is DiceRollResults {
+): arg is CommandResult {
   const exceptedKeysJSON = JSON.stringify([
     "critical",
     "failure",

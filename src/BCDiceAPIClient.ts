@@ -5,12 +5,12 @@ import {
   APIAdmin,
   APIVersion,
   AvailableGameSystem,
-  DiceRollResults,
+  CommandResult,
   GameSystem,
   isAPIAdmin,
   isAPIVersion,
   isAvailableGameSystem,
-  isDiceRollResults,
+  isCommandResult,
   isGameSystem,
   isOriginalTableResults,
   OriginalTableResults,
@@ -222,7 +222,7 @@ export default class BCDiceAPIClient {
    * @param id ゲームシステムのID
    * @param command ダイスロールのコマンド
    */
-  async diceRoll(id: string, command: string): Promise<DiceRollResults> {
+  async diceRoll(id: string, command: string): Promise<CommandResult> {
     const json = await this.webClient.get(`v2/game_system/${id}/roll`, {
       searchParams: {
         command,
@@ -258,7 +258,7 @@ export default class BCDiceAPIClient {
 
     delete json.ok;
 
-    if (!isDiceRollResults(json)) {
+    if (!isCommandResult(json)) {
       const causeError = new TypeError(
         `The syntax of the response is incorrect:\n${JSON.stringify(json)}`,
       );
