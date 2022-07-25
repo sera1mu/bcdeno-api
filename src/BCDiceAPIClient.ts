@@ -278,9 +278,11 @@ export default class BCDiceAPIClient {
    * 詳しくは https://docs.bcdice.org/original_table.html を参照。
    */
   async runOriginalTable(
-    table: BCDiceOriginalTable,
+    table: BCDiceOriginalTable | string,
   ): Promise<OriginalTableResults> {
-    const parsedTable = table.toBCDiceText();
+    const parsedTable = typeof table === "string"
+      ? table
+      : table.toBCDiceText();
 
     const json = await this.webClient.post("v2/original_table", {
       headers: {
