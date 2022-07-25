@@ -153,6 +153,8 @@ export default class BCDiceAPIClient {
             "The specified game system is unsupported.",
             { cause: err },
           );
+        } else {
+          throw err;
         }
       });
 
@@ -210,7 +212,7 @@ export default class BCDiceAPIClient {
    * @param command ダイスロールのコマンド
    */
   async diceRoll(id: string, command: string): Promise<CommandResult> {
-    const json = await this.webClient.get(`v2/game_system/${id}/roll`, {
+    const json = await this.get(`v2/game_system/${id}/roll`, {
       searchParams: {
         command,
       },
@@ -237,6 +239,8 @@ export default class BCDiceAPIClient {
               { cause: err },
             );
         }
+      } else {
+        throw err;
       }
     });
 
