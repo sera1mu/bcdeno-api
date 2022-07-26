@@ -81,7 +81,7 @@ describe("BCDiceAPITypes", () => {
     }
   });
 
-  it("isDiceRollResults", () => {
+  it("isCommandResult", () => {
     const correct = {
       text: "example-text",
       secret: true,
