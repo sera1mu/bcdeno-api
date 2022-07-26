@@ -7,14 +7,16 @@ import {
   AvailableGameSystem,
   CommandResult,
   GameSystem,
+  OriginalTableResults,
+} from "./types/types.ts";
+import {
   isAPIAdmin,
   isAPIVersion,
   isAvailableGameSystem,
   isCommandResult,
   isGameSystem,
   isOriginalTableResults,
-  OriginalTableResults,
-} from "./types/types.ts";
+} from "./types/type_checkers.ts";
 import SimpleKyClient from "./SimpleKyClient.ts";
 
 /**
