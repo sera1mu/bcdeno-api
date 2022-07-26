@@ -14,7 +14,7 @@ import {
   isGameSystem,
   isOriginalTableResults,
   OriginalTableResults,
-} from "./types.ts";
+} from "./types/types.ts";
 import SimpleKyClient from "./SimpleKyClient.ts";
 
 /**
