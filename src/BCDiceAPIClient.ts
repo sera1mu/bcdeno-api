@@ -14,7 +14,7 @@ import {
   isGameSystem,
   isOriginalTableResults,
   OriginalTableResults,
-} from "./BCDiceAPITypes.ts";
+} from "./types.ts";
 import SimpleKyClient from "./SimpleKyClient.ts";
 
 /**

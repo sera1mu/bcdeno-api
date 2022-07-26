@@ -6,7 +6,7 @@ import {
   isDiceRoll,
   isGameSystem,
   isOriginalTableResults,
-} from "./BCDiceAPITypes.ts";
+} from "./types.ts";
 import { assert } from "std/testing/asserts";
 import { describe, it } from "std/testing/bdd";
 
