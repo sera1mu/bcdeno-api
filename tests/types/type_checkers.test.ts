@@ -6,7 +6,7 @@ import {
   isDiceRoll,
   isGameSystem,
   isOriginalTableResults,
-} from "./type_checkers.ts";
+} from "../../src/types/type_checkers.ts";
 import { assert } from "std/testing/asserts";
 import { describe, it } from "std/testing/bdd";
 

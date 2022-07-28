@@ -1,10 +1,10 @@
 import { HTTPError, Options } from "ky";
 import { beforeAll, describe, it } from "std/testing/bdd";
 import { assertRejects, assertStrictEquals } from "std/testing/asserts";
-import BCDiceAPIClient from "./BCDiceAPIClient.ts";
-import WebClient, { IWebClient } from "./SimpleKyClient.ts";
-import BCDiceError from "./BCDiceError.ts";
-import BCDiceOriginalTable from "./BCDiceOriginalTable.ts";
+import BCDiceAPIClient from "../src/BCDiceAPIClient.ts";
+import WebClient, { IWebClient } from "../src/SimpleKyClient.ts";
+import BCDiceError from "../src/BCDiceError.ts";
+import BCDiceOriginalTable from "../src/BCDiceOriginalTable.ts";
 
 describe("BCDiceAPIClient", () => {
   type ReturnOptions = {

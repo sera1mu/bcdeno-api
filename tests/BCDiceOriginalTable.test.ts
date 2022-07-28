@@ -1,4 +1,4 @@
-import BCDiceOriginalTable from "./BCDiceOriginalTable.ts";
+import BCDiceOriginalTable from "../src/BCDiceOriginalTable.ts";
 import { assertEquals } from "std/testing/asserts";
 import { describe, it } from "std/testing/bdd";
 

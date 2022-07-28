@@ -1,6 +1,6 @@
 import { assert, assertFalse } from "std/testing/asserts";
 import { describe, it } from "std/testing/bdd";
-import { checkObject } from "./type_util.ts";
+import { checkObject } from "../../src/types/type_util.ts";
 
 describe("type_util", () => {
   describe("checkObject", () => {
