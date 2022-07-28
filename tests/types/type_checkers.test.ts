@@ -7,7 +7,7 @@ import {
   isGameSystem,
   isOriginalTableResults,
 } from "../../src/types/type_checkers.ts";
-import { assert } from "std/testing/asserts";
+import { assert, assertFalse } from "std/testing/asserts";
 import { describe, it } from "std/testing/bdd";
 
 describe("type_checkers", () => {
@@ -24,7 +24,7 @@ describe("type_checkers", () => {
 
     assert(isAPIVersion(correct));
     for (const entry of incorrects) {
-      assert(!(isAPIVersion(entry)));
+      assertFalse(isAPIVersion(entry));
     }
   });
 
@@ -43,7 +43,7 @@ describe("type_checkers", () => {
 
     assert(isAPIAdmin(correct));
     for (const entry of incorrects) {
-      assert(!(isAPIAdmin(entry)));
+      assertFalse(isAPIAdmin(entry));
     }
   });
 
@@ -58,7 +58,7 @@ describe("type_checkers", () => {
 
     assert(isAvailableGameSystem(correct));
     for (const entry of incorrects) {
-      assert(!(isAvailableGameSystem(entry)));
+      assertFalse(isAvailableGameSystem(entry));
     }
   });
 
@@ -77,7 +77,7 @@ describe("type_checkers", () => {
 
     assert(isDiceRoll(correct));
     for (const entry of incorrects) {
-      assert(!(isDiceRoll(entry)));
+      assertFalse(isDiceRoll(entry));
     }
   });
 
@@ -124,7 +124,7 @@ describe("type_checkers", () => {
 
     assert(isCommandResult(correct));
     for (const entry of incorrects) {
-      assert(!(isCommandResult(entry)));
+      assertFalse(isCommandResult(entry));
     }
   });
 
@@ -147,7 +147,7 @@ describe("type_checkers", () => {
 
     assert(isGameSystem(correct));
     for (const entry of incorrects) {
-      assert(!(isGameSystem(entry)));
+      assertFalse(isGameSystem(entry));
     }
   });
 
@@ -172,7 +172,7 @@ describe("type_checkers", () => {
 
     assert(isOriginalTableResults(correct));
     for (const entry of incorrects) {
-      assert(!(isOriginalTableResults(entry)));
+      assertFalse(isOriginalTableResults(entry));
     }
   });
 });
