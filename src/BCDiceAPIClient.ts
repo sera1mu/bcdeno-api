@@ -175,21 +175,16 @@ export default class BCDiceAPIClient {
       ) {
         const json = await err.cause.response.json();
 
-        switch (json.reason) {
-          case "unsupported game system":
-            throw new BCDiceError(
-              "UNSUPPORTED_SYSTEM",
-              "The specified game system is unsupported.",
-              { cause: err },
-            );
-
-          case "unsupported command":
-            throw new BCDiceError(
-              "UNSUPPORTED_COMMAND",
-              "The specified command is unsupported.",
-              { cause: err },
-            );
-        }
+        throw new BCDiceError(
+          `UNSUPPORTED_${
+            json.reason === "unsupported game system" ? "SYSTEM" : "COMMAND"
+          }`,
+          `The specified ${
+            json.reason === "unsupported game system"
+              ? "game system"
+              : "command"
+          } is unsupported.`,
+        );
       }
 
       throw err;
