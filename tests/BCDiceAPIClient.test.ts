@@ -122,7 +122,7 @@ describe("BCDiceAPIClient", () => {
       await assertRejects(
         async () => await bcdiceAPIClient.getAPIVersion(),
         BCDiceError,
-        "The response is incorrect.",
+        "The syntax of the response is incorrect:",
       );
     });
 
@@ -157,7 +157,7 @@ describe("BCDiceAPIClient", () => {
       await assertRejects(
         async () => await bcdiceAPIClient.getAPIAdmin(),
         BCDiceError,
-        "The response is incorrect.",
+        "The syntax of the response is incorrect:",
       );
     });
 
@@ -193,7 +193,7 @@ describe("BCDiceAPIClient", () => {
       await assertRejects(
         async () => await bcdiceAPIClient.getAvailableGameSystems(),
         BCDiceError,
-        "The response is incorrect.",
+        "The syntax of the response is incorrect.",
       );
     });
 
@@ -256,7 +256,7 @@ describe("BCDiceAPIClient", () => {
       await assertRejects(
         async () => await bcdiceAPIClient.getGameSystem("DiceBot"),
         BCDiceError,
-        "The response is incorrect.",
+        "The syntax of the response is incorrect.",
       );
     });
 
@@ -289,7 +289,7 @@ describe("BCDiceAPIClient", () => {
       await assertRejects(
         async () => await bcdiceAPIClient.getGameSystem("DiceBot"),
         BCDiceError,
-        "The response is incorrect.",
+        "The syntax of the response is incorrect:",
       );
     });
 
@@ -330,7 +330,7 @@ describe("BCDiceAPIClient", () => {
       await assertRejects(
         async () => await bcdiceAPIClient.diceRoll("DiceBot", "1d6"),
         BCDiceError,
-        "The response is incorrect.",
+        "The syntax of the response is incorrect:",
       );
     });
 
@@ -423,7 +423,7 @@ describe("BCDiceAPIClient", () => {
             }),
           ),
         BCDiceError,
-        "The response is incorrect.",
+        "The syntax of the response is incorrect:",
       );
     });
 

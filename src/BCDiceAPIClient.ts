@@ -49,26 +49,21 @@ export default class BCDiceAPIClient {
       });
   }
 
+  private checkType(result: boolean, target: unknown): void {
+    if (!result) {
+      throw new BCDiceError(
+        "INCORRECT_RESPONSE",
+        `The syntax of the response is incorrect:\n${String(target)}`,
+      );
+    }
+  }
+
   /**
    * BCDiceとBCDice-API自身のバージョンを取得
    */
   async getAPIVersion(): Promise<APIVersion> {
     const json = await this.get("v2/version");
-
-    if (!isAPIVersion(json)) {
-      const causeError = new TypeError(
-        `The syntax of the response is incorrect:\n${JSON.stringify(json)}`,
-      );
-
-      throw new BCDiceError(
-        "INCORRECT_RESPONSE",
-        "The response is incorrect.",
-        {
-          cause: causeError,
-        },
-      );
-    }
-
+    this.checkType(isAPIVersion(json), json);
     return json;
   }
 
@@ -77,19 +72,7 @@ export default class BCDiceAPIClient {
    */
   async getAPIAdmin(): Promise<APIAdmin> {
     const json = await this.get("v2/admin");
-
-    if (!isAPIAdmin(json)) {
-      const causeError = new TypeError(
-        `The syntax of the response is incorrect:\n${JSON.stringify(json)}`,
-      );
-
-      throw new BCDiceError(
-        "INCORRECT_RESPONSE",
-        "The response is incorrect.",
-        { cause: causeError },
-      );
-    }
-
+    this.checkType(isAPIAdmin(json), json);
     return json;
   }
 
@@ -101,16 +84,11 @@ export default class BCDiceAPIClient {
     const json = await this.get("v2/game_system");
 
     if (typeof json.game_system === "undefined") {
-      const causeError = new TypeError(
+      throw new BCDiceError(
+        "INCORRECT_RESPONSE",
         `The syntax of the response is incorrect. Property game_system is undefined:\n${
           JSON.stringify(json)
         }`,
-      );
-
-      throw new BCDiceError(
-        "INCORRECT_RESPONSE",
-        "The response is incorrect.",
-        { cause: causeError },
       );
     }
 
@@ -163,16 +141,11 @@ export default class BCDiceAPIClient {
     delete json.ok;
 
     if (typeof json.command_pattern === "undefined") {
-      const causeError = new TypeError(
+      throw new BCDiceError(
+        "INCORRECT_RESPONSE",
         `The syntax of the response is incorrect. Property command_pattern is undefined:\n${
           JSON.stringify(json)
         }`,
-      );
-
-      throw new BCDiceError(
-        "INCORRECT_RESPONSE",
-        "The response is incorrect.",
-        { cause: causeError },
       );
     }
 
@@ -193,17 +166,7 @@ export default class BCDiceAPIClient {
     delete json.sort_key;
     delete json.help_message;
 
-    if (!isGameSystem(json)) {
-      const causeError = new TypeError(
-        `The syntax of the response is incorrect:\n${JSON.stringify(json)}`,
-      );
-
-      throw new BCDiceError(
-        "INCORRECT_RESPONSE",
-        "The response is incorrect.",
-        { cause: causeError },
-      );
-    }
+    this.checkType(isGameSystem(json), json);
 
     return json;
   }
@@ -248,17 +211,7 @@ export default class BCDiceAPIClient {
 
     delete json.ok;
 
-    if (!isCommandResult(json)) {
-      const causeError = new TypeError(
-        `The syntax of the response is incorrect:\n${JSON.stringify(json)}`,
-      );
-
-      throw new BCDiceError(
-        "INCORRECT_RESPONSE",
-        "The response is incorrect.",
-        { cause: causeError },
-      );
-    }
+    this.checkType(isCommandResult(json), json);
 
     return json;
   }
@@ -298,17 +251,7 @@ export default class BCDiceAPIClient {
 
     delete json.ok;
 
-    if (!isOriginalTableResults(json)) {
-      const causeError = new TypeError(
-        `The syntax of the response is incorrect:\n${JSON.stringify(json)}`,
-      );
-
-      throw new BCDiceError(
-        "INCORRECT_RESPONSE",
-        "The response is incorrect.",
-        { cause: causeError },
-      );
-    }
+    this.checkType(isOriginalTableResults(json), json);
 
     return json;
   }
