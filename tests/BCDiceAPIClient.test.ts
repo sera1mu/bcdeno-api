@@ -193,7 +193,7 @@ describe("BCDiceAPIClient", () => {
       await assertRejects(
         async () => await bcdiceAPIClient.getAvailableGameSystems(),
         BCDiceError,
-        "The syntax of the response is incorrect.",
+        "The syntax of the response is incorrect:",
       );
     });
 
@@ -212,7 +212,7 @@ describe("BCDiceAPIClient", () => {
       await assertRejects(
         async () => await bcdiceAPIClient.getAvailableGameSystems(),
         BCDiceError,
-        "The game system is incorrect.",
+        "The syntax of the game system is incorrect:",
       );
     });
 
@@ -256,7 +256,7 @@ describe("BCDiceAPIClient", () => {
       await assertRejects(
         async () => await bcdiceAPIClient.getGameSystem("DiceBot"),
         BCDiceError,
-        "The syntax of the response is incorrect.",
+        "The syntax of the response is incorrect:",
       );
     });
 

@@ -49,11 +49,21 @@ export default class BCDiceAPIClient {
       });
   }
 
-  private checkType(result: boolean, target: unknown): void {
+  /**
+   * resultがfalseだった場合に、コード `INCORRECT_RESPONSE` の BCDiceErrorをthrowする
+   * @param result 型チェック結果
+   * @param target 型チェック対象 (エラーメッセージに使用される)
+   * @param targetName 型チェック対象の名前 (エラーメッセージに使用される)
+   */
+  private checkType(
+    result: boolean,
+    target: unknown,
+    targetName = "the response",
+  ): void {
     if (!result) {
       throw new BCDiceError(
         "INCORRECT_RESPONSE",
-        `The syntax of the response is incorrect:\n${String(target)}`,
+        `The syntax of ${targetName} is incorrect:\n${String(target)}`,
       );
     }
   }
@@ -80,38 +90,21 @@ export default class BCDiceAPIClient {
    * 使用可能なゲームシステムを取得する
    */
   async getAvailableGameSystems(): Promise<AvailableGameSystem[]> {
-    // Get data
     const json = await this.get("v2/game_system");
 
-    if (typeof json.game_system === "undefined") {
-      throw new BCDiceError(
-        "INCORRECT_RESPONSE",
-        `The syntax of the response is incorrect. Property game_system is undefined:\n${
-          JSON.stringify(json)
-        }`,
-      );
-    }
+    this.checkType(typeof json.game_system !== "undefined", json);
 
     // すべてのゲームシステムが正しいことを確認
     for (const entry of json.game_system) {
       const newEntry = entry;
-
       newEntry.sortKey = newEntry.sort_key;
       delete newEntry.sort_key;
 
-      if (!isAvailableGameSystem(entry)) {
-        const causeError = new TypeError(
-          `The syntax of the game system is incorrect:\n${
-            JSON.stringify(entry)
-          }`,
-        );
-
-        throw new BCDiceError(
-          "INCORRECT_RESPONSE",
-          "The game system is incorrect.",
-          { cause: causeError },
-        );
-      }
+      this.checkType(
+        isAvailableGameSystem(newEntry),
+        newEntry,
+        "the game system",
+      );
     }
 
     return json.game_system;
@@ -140,14 +133,7 @@ export default class BCDiceAPIClient {
 
     delete json.ok;
 
-    if (typeof json.command_pattern === "undefined") {
-      throw new BCDiceError(
-        "INCORRECT_RESPONSE",
-        `The syntax of the response is incorrect. Property command_pattern is undefined:\n${
-          JSON.stringify(json)
-        }`,
-      );
-    }
+    this.checkType(typeof json.command_pattern !== "undefined", json);
 
     try {
       json.commandPattern = new RegExp(json.command_pattern);
