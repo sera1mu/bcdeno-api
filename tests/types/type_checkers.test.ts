@@ -10,7 +10,7 @@ import {
 import { assert } from "std/testing/asserts";
 import { describe, it } from "std/testing/bdd";
 
-describe("BCDiceAPITypes", () => {
+describe("type_checkers", () => {
   it("isAPIVersion", () => {
     const correct = {
       api: "1.0.0",
