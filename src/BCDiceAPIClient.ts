@@ -184,6 +184,9 @@ export default class BCDiceAPIClient {
               ? "game system"
               : "command"
           } is unsupported.`,
+          {
+            cause: err,
+          },
         );
       }
 
