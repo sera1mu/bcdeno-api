@@ -17,7 +17,7 @@ import {
   isGameSystem,
   isOriginalTableResults,
 } from "./types/type_checkers.ts";
-import SimpleKyClient from "./SimpleKyClient.ts";
+import WebClient from "./WebClient.ts";
 
 /**
  * BCDice-APIと通信するためのクライアント
@@ -25,9 +25,9 @@ import SimpleKyClient from "./SimpleKyClient.ts";
 export default class BCDiceAPIClient {
   readonly prefixUrl: string | URL;
 
-  private readonly webClient: SimpleKyClient;
+  private readonly webClient: WebClient;
 
-  constructor(webClient: SimpleKyClient) {
+  constructor(webClient: WebClient) {
     this.webClient = webClient;
     this.prefixUrl = webClient.prefixUrl;
   }
