@@ -33,6 +33,13 @@ export default class BCDiceAPIClient {
   }
 
   /**
+   * サーバーURLからBCDiceWebClientのインスタンスを作成する
+   */
+  static create(prefixUrl: string): BCDiceAPIClient {
+    return new BCDiceAPIClient(new WebClient(prefixUrl));
+  }
+
+  /**
    * WebClientからGETリクエストを送信し、エラー時にBCDiceErrorをthrowする
    */
   // deno-lint-ignore no-explicit-any
