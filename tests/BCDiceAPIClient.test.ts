@@ -260,6 +260,24 @@ describe("BCDiceAPIClient", () => {
       );
     });
 
+    it("incorrectRegExp", async () => {
+      setOkResponseMode();
+      returnOptions.responseObject = {
+        ok: true,
+        id: "hogehoge",
+        name: "ほげほげ",
+        sort_key: "ほげほげ",
+        command_pattern: "?hogehoge",
+        help_message: "ほげほげ",
+      };
+
+      await assertRejects(
+        async () => await bcdiceAPIClient.getGameSystem("hogehoge"),
+        BCDiceError,
+        "The response is incorrect.",
+      );
+    });
+
     it("unsupportedSystem", async () => {
       returnOptions.isThrowHTTPError = true;
       returnOptions.statusCode = 400;
