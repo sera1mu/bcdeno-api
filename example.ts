@@ -1,4 +1,6 @@
-import BCDiceAPIClient, { BCDiceOriginalTable } from "./mod.ts";
+import BCDiceAPIClient, {
+  BCDiceOriginalTable,
+} from "https://deno.land/x/bcdeno_api/mod.ts";
 
 const SERVER = "https://bcdice.onlinesession.app";
 const client = BCDiceAPIClient.create(SERVER);
