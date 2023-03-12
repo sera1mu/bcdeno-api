@@ -1,5 +1,10 @@
 # bcdeno_api
 
+[![Test](https://img.shields.io/github/actions/workflow/status/sera1mu/bcdeno_api/test.yml?branch=main&label=Test&logo=github&logoColor=silver)](https://github.com/sera1mu/bcdeno_api/actions/workflows/test.yml)
+[![Lint](https://img.shields.io/github/actions/workflow/status/sera1mu/bcdeno_api/lint.yml?branch=main&label=Lint&logo=github&logoColor=silver)](https://github.com/sera1mu/bcdeno_api/actions/workflows/lint.yml)
+[![Format](https://img.shields.io/github/actions/workflow/status/sera1mu/bcdeno_api/format.yml?branch=main&label=Format&logo=github&logoColor=silver)](https://github.com/sera1mu/bcdeno_api/actions/workflows/format.yml)
+[![Coverage](https://img.shields.io/codecov/c/github/sera1mu/bcdeno_api?logo=codecov)](https://app.codecov.io/gh/sera1mu/bcdeno_api)
+
 BCDice-APIをDenoから簡単に使用するためのライブラリ
 
 ## Getting Started
