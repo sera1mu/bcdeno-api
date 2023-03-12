@@ -12,11 +12,13 @@ BCDice-APIをDenoから簡単に使用するためのライブラリ
 ### Example
 
 手っ取り早い例を見るには、次のコマンドを実行してください:
+
 ```
 deno run --allow-net https://deno.land/x/bcdeno_api/example.ts
 ```
 
 実行されるスクリプトは以下のようなものです:
+
 ```typescript
 import BCDiceAPIClient, {
   BCDiceOriginalTable,
