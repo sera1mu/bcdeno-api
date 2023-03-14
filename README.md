@@ -14,6 +14,10 @@ BCDice-APIをDenoから簡単に使用するためのライブラリ
 - [Deno](https://deno.land)
 - BCDice-API Server ([公開サーバー一覧](https://api-status.bcdice.org/))
 
+### Documantation
+
+[deno.landのページ](https://deno.land/x/bcdeno_api/mod.ts)からドキュメントを見ることができます。
+
 ### Example
 
 手っ取り早い例を見るには、次のコマンドを実行してください:
