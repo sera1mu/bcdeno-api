@@ -1,6 +1,7 @@
 /**
- * BCDice Error code
+ * BCDice APIのエラー原因を示すコード
  *
+ * 各エラーコードの意味:
  * * `UNSUPPORTED_COMMAND` -> 正しくないコマンドです。構文を見直してください。
  * * `UNSUPPORTED_SYSTEM`  -> 存在しないゲームシステムです。ゲームシステム名が正しいか確認してください。
  * * `UNSUPPORTED_TABLE`   -> 正しくないテーブルです。構文を見直してください。
@@ -21,11 +22,6 @@ export interface BCDiceErrorInit {
 }
 
 export class BCDiceError extends Error {
-  /**
-   * エラーコード
-   *
-   * `BCDiceErrorCode` のコメントにそれぞれのコメントが何を意味するか書かれています。
-   */
   readonly code: BCDiceErrorCode;
 
   constructor(
