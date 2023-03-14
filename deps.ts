@@ -1,2 +1,2 @@
-export { default, HTTPError } from "https://cdn.skypack.dev/ky?dts";
-export type { Options } from "https://cdn.skypack.dev/ky?dts";
+export { default, HTTPError } from "https://esm.sh/ky@0.33.2";
+export type { Options } from "https://esm.sh/ky@0.33.2";
