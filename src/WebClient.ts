@@ -20,7 +20,7 @@ export interface IWebClient {
 /**
  * KyによるGET/POSTを送信するクライアント
  */
-export default class WebClient implements IWebClient {
+export class WebClient implements IWebClient {
   readonly prefixUrl: string | URL;
 
   private readonly kyClient: ReturnType<typeof ky.create>;

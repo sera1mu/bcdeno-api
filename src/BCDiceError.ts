@@ -20,7 +20,7 @@ export interface BCDiceErrorInit {
   cause?: Error;
 }
 
-export default class BCDiceError extends Error {
+export class BCDiceError extends Error {
   /**
    * エラーコード
    *

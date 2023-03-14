@@ -9,7 +9,7 @@ export interface IBCDiceOriginalTable {
 /**
  * BCDiceのオリジナル表
  */
-export default class BCDiceOriginalTable implements IBCDiceOriginalTable {
+export class BCDiceOriginalTable implements IBCDiceOriginalTable {
   readonly title: string;
 
   readonly command: string;

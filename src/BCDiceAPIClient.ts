@@ -1,6 +1,6 @@
 import { HTTPError, Options } from "ky";
-import BCDiceOriginalTable from "./BCDiceOriginalTable.ts";
-import BCDiceError from "./BCDiceError.ts";
+import { BCDiceOriginalTable } from "./BCDiceOriginalTable.ts";
+import { BCDiceError } from "./BCDiceError.ts";
 import {
   APIAdmin,
   APIVersion,
@@ -17,7 +17,7 @@ import {
   isGameSystem,
   isOriginalTableResults,
 } from "./types/type_checkers.ts";
-import WebClient from "./WebClient.ts";
+import { WebClient } from "./WebClient.ts";
 
 /**
  * BCDice-APIと通信するためのクライアント
