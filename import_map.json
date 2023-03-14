@@ -1,7 +1,0 @@
-{
-  "imports": {
-    "ky": "https://cdn.skypack.dev/ky?dts",
-    "std/testing/asserts": "https://deno.land/std@0.179.0/testing/asserts.ts",
-    "std/testing/bdd": "https://deno.land/std@0.179.0/testing/bdd.ts"
-  }
-}

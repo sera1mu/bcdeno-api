@@ -1,6 +1,11 @@
-import { HTTPError, Options } from "ky";
-import { beforeAll, describe, it } from "std/testing/bdd";
-import { assertRejects, assertStrictEquals } from "std/testing/asserts";
+import { HTTPError, Options } from "../deps.ts";
+import {
+  assertRejects,
+  assertStrictEquals,
+  beforeAll,
+  describe,
+  it,
+} from "../dev_deps.ts";
 import BCDiceAPIClient from "../src/BCDiceAPIClient.ts";
 import { IWebClient, WebClient } from "../src/WebClient.ts";
 import { BCDiceError } from "../src/BCDiceError.ts";

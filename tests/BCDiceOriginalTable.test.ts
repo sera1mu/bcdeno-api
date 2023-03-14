@@ -1,6 +1,5 @@
 import { BCDiceOriginalTable } from "../src/BCDiceOriginalTable.ts";
-import { assertEquals } from "std/testing/asserts";
-import { describe, it } from "std/testing/bdd";
+import { assertEquals, describe, it } from "../dev_deps.ts";
 
 describe("BCDiceOriginalTable", () => {
   it("toBCDiceText", () => {

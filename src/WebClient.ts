@@ -1,5 +1,4 @@
-import { default as ky } from "ky";
-import { Options } from "ky";
+import { default as ky, Options } from "../deps.ts";
 
 export interface IWebClient {
   /**

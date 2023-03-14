@@ -7,8 +7,7 @@ import {
   isGameSystem,
   isOriginalTableResults,
 } from "../../src/types/type_checkers.ts";
-import { assert, assertFalse } from "std/testing/asserts";
-import { describe, it } from "std/testing/bdd";
+import { assert, assertFalse, describe, it } from "../../dev_deps.ts";
 
 describe("type_checkers", () => {
   it("isAPIVersion", () => {

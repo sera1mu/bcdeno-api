@@ -1,4 +1,4 @@
-import { HTTPError, Options } from "ky";
+import { HTTPError, Options } from "../deps.ts";
 import { BCDiceOriginalTable } from "./BCDiceOriginalTable.ts";
 import { BCDiceError } from "./BCDiceError.ts";
 import {
