@@ -1,4 +1,4 @@
-import { HTTPError, Options } from "../deps.ts";
+import { HTTPError, Options, z } from "../deps.ts";
 import { BCDiceOriginalTable } from "./BCDiceOriginalTable.ts";
 import { BCDiceError } from "./BCDiceError.ts";
 import {
@@ -8,15 +8,7 @@ import {
   CommandResult,
   GameSystem,
   OriginalTableResults,
-} from "./types/types.ts";
-import {
-  isAPIAdmin,
-  isAPIVersion,
-  isAvailableGameSystem,
-  isCommandResult,
-  isGameSystem,
-  isOriginalTableResults,
-} from "./types/type_checkers.ts";
+} from "./types.ts";
 import { WebClient } from "./WebClient.ts";
 
 /**
@@ -79,8 +71,7 @@ export default class BCDiceAPIClient {
    * BCDiceとBCDice-API自身のバージョンを取得
    */
   async getAPIVersion(): Promise<APIVersion> {
-    const json = await this.get("v2/version");
-    this.checkType(isAPIVersion(json), json);
+    const json = APIVersion.parse(await this.get("v2/version"));
     return json;
   }
 
@@ -88,8 +79,7 @@ export default class BCDiceAPIClient {
    * BCDice-APIの管理者情報を取得する
    */
   async getAPIAdmin(): Promise<APIAdmin> {
-    const json = await this.get("v2/admin");
-    this.checkType(isAPIAdmin(json), json);
+    const json = APIAdmin.parse(await this.get("v2/admin"));
     return json;
   }
 
@@ -103,18 +93,13 @@ export default class BCDiceAPIClient {
 
     // すべてのゲームシステムが正しいことを確認
     for (const entry of json.game_system) {
-      const newEntry = entry;
-      newEntry.sortKey = newEntry.sort_key;
-      delete newEntry.sort_key;
-
-      this.checkType(
-        isAvailableGameSystem(newEntry),
-        newEntry,
-        "the game system",
-      );
+      entry.sortKey = entry.sort_key;
+      delete entry.sort_key;
     }
 
-    return json.game_system;
+    const gameSystems = z.array(AvailableGameSystem).parse(json.game_system);
+
+    return gameSystems;
   }
 
   /**
@@ -159,9 +144,9 @@ export default class BCDiceAPIClient {
     delete json.sort_key;
     delete json.help_message;
 
-    this.checkType(isGameSystem(json), json);
+    const gameSystem = GameSystem.parse(json);
 
-    return json;
+    return gameSystem;
   }
 
   /**
@@ -202,9 +187,9 @@ export default class BCDiceAPIClient {
 
     delete json.ok;
 
-    this.checkType(isCommandResult(json), json);
+    const commandResult = CommandResult.parse(json);
 
-    return json;
+    return commandResult;
   }
 
   /**
@@ -242,8 +227,8 @@ export default class BCDiceAPIClient {
 
     delete json.ok;
 
-    this.checkType(isOriginalTableResults(json), json);
+    const originalTableResults = OriginalTableResults.parse(json);
 
-    return json;
+    return originalTableResults;
   }
 }
